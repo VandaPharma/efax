@@ -43,7 +43,7 @@ module EFax
       @request_date  = datetime_to_time(DateTime.strptime("#{doc.at(:requestdate).inner_text} -08:00", "%m/%d/%Y %H:%M:%S %z"))
       @barcodes      = doc.search("//barcode/key").map { |key| key.inner_html }
       @barcode_pages = doc.search("//barcode/AdditionalInfo/CodeLocation/PageNumber").map { |key| key.inner_html }
-      @number_dialed = doc.at(:numberdialed)
+      @number_dialed = doc.at(:numberdialed).inner_text
     end
 
     def file_contents
