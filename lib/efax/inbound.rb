@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'base64'
 require 'tempfile'
 require 'date'
+require 'pry'
 
 module EFax
   class InboundPostStatus
@@ -43,7 +44,7 @@ module EFax
       @request_date  = datetime_to_time(DateTime.strptime("#{doc.at(:RequestDate).inner_text} -08:00", "%m/%d/%Y %H:%M:%S %z"))
       @barcodes      = doc.xpath("//Barcode/Key").map { |key| key.inner_html }
       @barcode_pages = doc.xpath("//Barcode/AdditionalInfo/CodeLocation/PageNumber").map { |key| key.inner_html }
-      @number_dialed = doc.at(:NumberDialed).inner_text
+      @number_dialed = !doc.at(:NumberDialed).nil? ? doc.at(:NumberDialed).inner_text : nil
     end
 
     def file_contents
