@@ -2,7 +2,6 @@ require 'nokogiri'
 require 'base64'
 require 'tempfile'
 require 'date'
-require 'pry'
 
 module EFax
   class InboundPostStatus
